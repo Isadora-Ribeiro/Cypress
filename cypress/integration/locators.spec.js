@@ -15,4 +15,10 @@ describe('Work with basic elemtens', ()=>{
         cy.get("[onclick*='Francisco']")
         cy.get('#tabelaUsuarios td:contains(\'Doutorado\'):eq(0) ~ td:eq(3) > input')
     })
+
+    it('using xpath' , ()=>{
+      cy.xpath('//input[contains(@onclick, \'Francisco\')]')
+      cy.xpath("//table[@id='tabelaUsuarios']//td[contains(., 'Francisco')]//..//input[@type='text']")
+      cy.xpath("//td[contains(., 'Usuario A')]/following-sibling::td[contains(., 'Mestrado')]/..//input[@type='text']").type('funciona?')
+    })
 })
