@@ -23,5 +23,5 @@ require ('cypress-xpath')
 
 
 Cypress.SelectorPlayground.defaults({
-    selectorPriority:[ 'data-cy', 'data-test', 'data-testid', 'id', 'class', 'attributes', 'tag', 'nth-child']
+    selectorPriority:[ 'data-cy', 'data-test', 'data-testid','class', 'id',  'attributes', 'tag', 'nth-child']
 })
