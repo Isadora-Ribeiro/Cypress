@@ -11,7 +11,7 @@ describe('Should test at a funcional level', () => {
     beforeEach(() => {
       cy.get(loc.MENU.HOME).click()
       cy.resetAPP()
-      
+
     })
 
     it('Should create an account', () => {
@@ -22,6 +22,7 @@ describe('Should test at a funcional level', () => {
 
       it('Should update an account', () => {
         cy.acessarMenuConta()
+
 
         cy.xpath(loc.CONTAS.FN_XP_BTN_ALTERAR('Conta para alterar')).click()
         cy.get(loc.CONTAS.NOME)
@@ -54,21 +55,20 @@ describe('Should test at a funcional level', () => {
     cy.xpath(loc.EXTRATO.FN_XP_BUSCA_ELEMENTO('Desc', '123' )).should('exist')
     })
 
-    it.only('Should get balance', () => {
+    it('Should get balance', () => {
       cy.get(loc.MENU.HOME).click()
       cy.xpath(loc.SALDO.FN_XP_SALDO_CONTA('Conta para saldo')).should('contain', '534,00')
 
       cy.get(loc.MENU.EXTRATO).click()
       cy.xpath(loc.EXTRATO.FN_XP_ALTERAR_ELEMENTO('Movimentacao 1, calculo saldo')).click()
-      cy.wait(2000)
+      cy.wait(5000)
+      cy.get(loc.MOVIMENTACAO.DESCRICAO).should('have.value', 'Movimentacao 1, calculo saldo')
       cy.get(loc.MOVIMENTACAO.STATUS).click()
       cy.get(loc.MOVIMENTACAO.BTN_SALVAR).click()
       cy.get(loc.MESSAGE).should('contain', 'sucesso')
 
       cy.get(loc.MENU.HOME).click()
-      cy.xpath(loc.SALDO.FN_XP_SALDO_CONTA('Conta para saldo')).should('contain', '4000,00')
-
-
+      cy.xpath(loc.SALDO.FN_XP_SALDO_CONTA('Conta para saldo')).should('contain', '4.034,00')
 
   })
 
