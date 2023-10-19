@@ -13,6 +13,20 @@ describe('Should test at a backend level', () => {
                 email: 'isa@santos.com',
                 senha: 'isalinda14'
             }
-        }).then(res => console.log(res))
-    })
+        })
+        // }).then(res => console.log(res))
+
+        cy.request({
+            url:'https://seubarriga.wcaquino.me/salvarConta',
+            method: 'POST',
+            body:{
+                nome: 'uma conta'
+            }
+        }).as('response')
+            cy.get('@response').then(res => {
+                expect(res.status).to.be.equal(200)
+            })
+        })
+    // }).then(res => console.log(res))
+
 })
