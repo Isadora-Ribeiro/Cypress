@@ -55,7 +55,7 @@ describe('Should test at a funcional level', () => {
     cy.xpath(loc.EXTRATO.FN_XP_BUSCA_ELEMENTO('Desc', '123' )).should('exist')
     })
 
-    it('Should get balance', () => {
+    it.only('Should get balance', () => {
       cy.get(loc.MENU.HOME).click()
       cy.xpath(loc.SALDO.FN_XP_SALDO_CONTA('Conta para saldo')).should('contain', '534,00')
 
@@ -76,7 +76,6 @@ describe('Should test at a funcional level', () => {
     cy.get(loc.MENU.EXTRATO).click()
     cy.xpath(loc.EXTRATO.FN_XP_REMOVER_ELEMENTO('Movimentacao para exclusao')).click()
     cy.get(loc.MESSAGE).should('contain', 'sucesso')
-
 
   })
 })

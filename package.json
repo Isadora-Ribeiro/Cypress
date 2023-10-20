@@ -15,5 +15,8 @@
     "gerador-validador-cpf": "^5.0.2"
   },
   "keywords": [],
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "@faker-js/faker": "^8.2.0"
+  }
 }
