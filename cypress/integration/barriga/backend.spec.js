@@ -1,11 +1,12 @@
 /// <reference types= "cypress"/>
 
-
-import { faker, id_ID } from '@faker-js/faker'
+import { faker } from '@faker-js/faker'
 
 describe('Should test at a backend level', () => {
+    var idP = ""
+
     before(() => {
-       
+
     })
 
     it('Cadastrar Usuario', () => {
@@ -19,12 +20,16 @@ describe('Should test at a backend level', () => {
                 administrador: 'true'
             },
         }).as('response')
-            cy.get('@response').then(res =>{
-                expect(res.status).to.be.equal(201)
-                expect(res.body).to.have.property('message', 'Cadastro realizado com sucesso')
-                expect(res.body).to.have.property('_id')
-           })
-        })
+        cy.get('@response').then(res =>{
+            expect(res.status).to.be.equal(201)
+            expect(res.body).to.have.property('message', 'Cadastro realizado com sucesso')
+            expect(res.body).to.have.property('_id')
+             const id = res.body._id
+             idP = id
+                cy.log(id)
+            
+            }) 
+         })
            it('Usuário ja cadastrado ', () => {
             cy.request({
                 method: 'POST',
@@ -59,31 +64,35 @@ describe('Should test at a backend level', () => {
         it('Listar um usuário cadastrado', () => {
             cy.request({
                 method: 'GET',
-                url: 'https://serverest.dev/usuarios'
+                url: 'https://serverest.dev/usuarios/'
+            }).as('response')
+                cy.get('@response').then(res =>{
+                expect(res.status).to.be.eq(200)  
+            })
+        })
+        it('Buscar usuário por ID', () => {
+            cy.request({
+                method:'GET',
+                url:'https://serverest.dev/usuarios/' + idP 
+            }).as('response')
+            cy.get('@response').then(res => {
+            expect(res.status).to.be.eq(200)
+            })
+            console.log(idP)
+        })
+        it('Excluir usuário', () => {
+            cy.request({
+                method: 'DELETE',
+                url: 'https://serverest.dev/usuarios/delete' + idP
             }).as('response')
             cy.get('@response').then(res =>{
                 expect(res.status).to.be.eq(200)
+                expect(res.body).to.have.property('message', 'Registro excluído coom sucesso')
             })
-        })
-        // it('Buscar usuário por ID', () => {
-        //     cy.request({
-        //         method:'GET',
-        //         url:'https://serverest.dev/usuarios'
-        //     }).as('response')
-        //     cy.get('@response').theb(res => {
-        //         cy.get(_id).should('contain', '_id')
-        //     })
-        // })
-        // it('Excluir usuário', () => {
-        //     cy.request({
-        //         method: 'DELETE'
-        //     })
 
         // })
         // it('Editar usuário', () => {
-
-       
     
 })
         
-    
+})
